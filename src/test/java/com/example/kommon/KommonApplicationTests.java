@@ -11,6 +11,7 @@ public class KommonApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }
