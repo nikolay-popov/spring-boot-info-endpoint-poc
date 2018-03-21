@@ -55,6 +55,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<!--Can be used lately to expose build properties such as artifact version-->
 				<!--<executions>-->
 					<!--<execution>-->
 						<!--<goals>-->
@@ -64,12 +65,14 @@
 				<!--</executions>-->
 			</plugin>
 
+			<!--Generating git.properties file containing two git commit properties-->
 			<plugin>
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
 				<version>2.2.1</version>
 				<configuration>
 					<includeOnlyProperties>
+						<!--This is a regexp, git.commit.id would give whole bunch of commit id properties-->
 						 <includeOnlyProperty>^git.commit.id$</includeOnlyProperty>
 						 <includeOnlyProperty>^git.commit.time$</includeOnlyProperty>
 					</includeOnlyProperties>
