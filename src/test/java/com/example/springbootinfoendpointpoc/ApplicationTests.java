@@ -1,4 +1,4 @@
-package com.example.kommon;
+package com.example.springbootinfoendpointpoc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class KommonApplicationTests {
+public class ApplicationTests {
 
   @Autowired
   private MockMvc mockMvc;

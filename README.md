@@ -8,6 +8,6 @@ Given an empty spring boot project with web layer plugged in:
 
 `mvn clean install` to build (regenerate git.properties) and run tests
 
-`java -jar target/kommon-0.0.1-SNAPSHOT.jar` or KommonApplication->run in IDEA to run on localhost
+`java -jar target/springbootinfoendpointpoc-0.0.1-SNAPSHOT.jar` or run src/main/java/com/example/springbootinfoendpointpoc/Application.java- in IntelliJ to run server on localhost
 
 `curl user:pwd@localhost:8080/info` to try it manually

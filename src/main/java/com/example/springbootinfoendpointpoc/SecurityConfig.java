@@ -1,4 +1,4 @@
-package com.example.kommon;
+package com.example.springbootinfoendpointpoc;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

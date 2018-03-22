@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.example</groupId>
-	<artifactId>kommon</artifactId>
+	<artifactId>springbootinfoendpointpoc</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>kommon</name>
+	<name>springbootinfoendpointpoc</name>
 	<description>Spring Boot Actuator /info endpoint POC</description>
 
 	<parent>

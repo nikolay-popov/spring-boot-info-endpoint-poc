@@ -1,13 +1,13 @@
-package com.example.kommon;
+package com.example.springbootinfoendpointpoc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KommonApplication {
+public class Application {
 
   public static void main(String[] args) {
-    SpringApplication.run(KommonApplication.class, args);
+    SpringApplication.run(Application.class, args);
   }
 
 }
