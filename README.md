@@ -15,7 +15,9 @@ Given an empty spring boot project with web layer plugged in:
 
 # Spring Cloud Sleuth With Spring Security branch
 
-NOTE: Checkout `git co spring-cloud-endpoints` branch to see how it works without Spring Security.
+MAIN QUESTION: why credentials defined in SecurityConfig don't work - and what work (potentially exposing endpoints)!
+
+NOTE: Checkout `git co spring-cloud-endpoints` branch to see how it works without Spring Security - it shows how all endpoints are disabled so the MAIN QUESTION can be ignored until we will need some of them.
 
 If project have a dependency on Spring Cloud Sleuth (SCS), Spring Actuator will be there but also Spring Cloud (SC) starter will be added to dependencies which will expose a number of additional [endpoints](http://cloud.spring.io/spring-cloud-static/spring-cloud.html#_endpoints)
 
@@ -23,8 +25,6 @@ In SCS 1.0.4.RELEASE you cannot easily disable them all and `env` endpoint toget
 
 It was fixed with https://github.com/spring-cloud/spring-cloud-commons/pull/208 in [v1.2.3.RELEASE](https://github.com/spring-cloud/spring-cloud-commons/releases/tag/v1.2.3.RELEASE) of Spring Cloud Commons (SCS 1.0.4.RELEASE uses SCC 1.1.1.RELEASE). I didn't check in what version of SCS they started using it but project didn't work with 1.3.2 - the latest version of SCS in the moment of writing. 
 
-Note that even disabled endpoints are still logged on application start - check SpringCloudEndpointsTests to see how they really work.
+Note that even disabled some endpoints are still logged on application start - check SpringCloudEndpointsTests to see how they really work.
 
 FYI: you may want to check out history of this branch - there is a commit with enabled SC endpoints together with tests to show default behaviour.
-
-MAIN QUESTION: why credentials defined in SecurityConfig don't work - and what work (potentially exposing endpoints)!
