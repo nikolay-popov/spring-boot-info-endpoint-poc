@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,98 +22,60 @@ public class SpringCloudEndpointsTests {
 
   @Test
   public void env() throws Exception {
+    testEndpoint("/env");
+  }
+
+  private void testEndpoint(String endpoint) throws Exception {
+    testEndpointWithoutAuthorization(endpoint);
+    testEndpointWithInvalidAuthorization(endpoint);
+    testEndpointWithAuthorizationValidBySecurityConfig(endpoint);
+  }
+
+  private void testEndpointWithoutAuthorization(String endpoint) throws Exception {
+    mockMvc
+        .perform(post(endpoint))
+        .andExpect(status().isForbidden());
+  }
+
+  private void testEndpointWithInvalidAuthorization(String endpoint) throws Exception {
     mockMvc
         .perform(
-            post("/env"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isOk());
-//        .andExpect(status().isForbidden());
+            post(endpoint)
+                .with(httpBasic("user", "invalid_pwd")))
+        .andExpect(status().isForbidden());
+  }
 
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+  private void testEndpointWithAuthorizationValidBySecurityConfig(String endpoint) throws Exception {
+    mockMvc
+        .perform(
+            post(endpoint)
+                .with(httpBasic("user", "pwd")))
+        .andExpect(status().isForbidden()); // TODO: see MAIN QUESTION in README
   }
 
   @Test
   public void envReset() throws Exception {
-    mockMvc
-        .perform(
-            post("/env/reset"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isOk());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+    testEndpoint("/env/reset");
   }
 
   @Test
-  public void refreshIsDisabledByDefault() throws Exception {
-    mockMvc
-        .perform(
-            post("/refresh"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isNotFound());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+  public void refresh() throws Exception {
+    testEndpoint("/refresh");
   }
 
   @Test
-  public void restartIsDisabledByDefault() throws Exception {
-    mockMvc
-        .perform(
-            post("/restart"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isNotFound());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+  public void restart() throws Exception {
+    testEndpoint("/restart");
   }
 
   @Test
   public void pause() throws Exception {
-    mockMvc
-        .perform(
-            post("/pause"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isOk());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+    testEndpoint("/pause");
   }
 
   @Test
   public void resume() throws Exception {
-    mockMvc
-        .perform(
-            post("/resume"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isOk());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+    testEndpoint("/resume");
   }
 
 }
