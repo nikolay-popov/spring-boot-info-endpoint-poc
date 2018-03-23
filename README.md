@@ -17,12 +17,21 @@ Given an empty spring boot project with web layer plugged in:
 
 If project have a dependency on Spring Cloud Sleuth (SCS), Spring Actuator will be there but also Spring Cloud (SC) starter will be added to dependencies which will expose a number of additional [endpoints](http://cloud.spring.io/spring-cloud-static/spring-cloud.html#_endpoints)
 
-In SCS 1.0.4.RELEASE you cannot easily disable them all and `env` endpoint together with `env/reset` still give 200 even when explicitly disabled.
+In SCS 1.0.4.RELEASE you have to disable them one-by-one and `env` endpoint together with `env/reset` have to be disabled with `env.post` property instead of `env` like for others.
 
 It was fixed with https://github.com/spring-cloud/spring-cloud-commons/pull/208 in [v1.2.3.RELEASE](https://github.com/spring-cloud/spring-cloud-commons/releases/tag/v1.2.3.RELEASE) of Spring Cloud Commons (SCS 1.0.4.RELEASE uses SCC 1.1.1.RELEASE). I didn't check in what version of SCS they started using it but project didn't work with 1.3.2 - the latest version of SCS in the moment of writing. 
 
-Spring Security is disabled in this (spring-cloud-endpoints) branch to demonstrate how SC endpoints can be disabled with SCS 1.0.4 and to allow to play with versions later. Please see spring-cloud-endpoints-with-spring-security branch to see how it works with Spring Security.
+Spring Security is disabled in this (spring-cloud-endpoints) branch to demonstrate how SC endpoints can be disabled with SCS 1.0.4 and to allow to play with versions later. Please see `spring-cloud-endpoints-with-spring-security` branch to see how it works with Spring Security.
 
-Note that even disabled endpoints are still logged on application start - check SpringCloudEndpointsTests to see how they really work.
+Note that even disabled some endpoints are still logged on application start:
+
+```
+2018-03-23 19:42:00.060  INFO [bootstrap,,,] 34765 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/restart || /restart.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.context.restart.RestartMvcEndpoint.invoke()
+2018-03-23 19:42:00.062  INFO [bootstrap,,,] 34765 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/info || /info.json],methods=[GET],produces=[application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
+2018-03-23 19:42:00.063  INFO [bootstrap,,,] 34765 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/pause || /pause.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+2018-03-23 19:42:00.088  INFO [bootstrap,,,] 34765 --- [           main] o.s.b.a.e.mvc.EndpointHandlerMapping     : Mapped "{[/resume || /resume.json],methods=[POST]}" onto public java.lang.Object org.springframework.cloud.endpoint.GenericPostableMvcEndpoint.invoke()
+```
+
+Check SpringCloudEndpointsTests to see how they really work.
 
 FYI: you may want to check out history of this branch - there is a commit with enabled SC endpoints together with tests to show default behaviour.

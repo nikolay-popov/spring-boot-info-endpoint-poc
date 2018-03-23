@@ -21,98 +21,38 @@ public class SpringCloudEndpointsTests {
 
   @Test
   public void env() throws Exception {
-    mockMvc
-        .perform(
-            post("/env"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isOk());
-//        .andExpect(status().isForbidden());
+    testEndpointIsDisabled("/env");
+  }
 
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+  private void testEndpointIsDisabled(String endpoint) throws Exception {
+    mockMvc
+        .perform(post(endpoint))
+        .andExpect(status().isNotFound());
   }
 
   @Test
   public void envReset() throws Exception {
-    mockMvc
-        .perform(
-            post("/env/reset"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isOk());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+    testEndpointIsDisabled("/env/reset");
   }
 
   @Test
-  public void refreshIsDisabledByDefault() throws Exception {
-    mockMvc
-        .perform(
-            post("/refresh"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isNotFound());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+  public void refresh() throws Exception {
+    testEndpointIsDisabled("/refresh");
   }
 
   @Test
-  public void restartIsDisabledByDefault() throws Exception {
-    mockMvc
-        .perform(
-            post("/restart"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isNotFound());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+  public void restart() throws Exception {
+    testEndpointIsDisabled("/restart");
   }
 
   @Test
   public void pause() throws Exception {
-    mockMvc
-        .perform(
-            post("/pause"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isOk());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+    testEndpointIsDisabled("/pause");
   }
 
   @Test
   public void resume() throws Exception {
-    mockMvc
-        .perform(
-            post("/resume"))
-//                .with(httpBasic("user", "invalid_pwd")))
-        .andExpect(status().isOk());
-//        .andExpect(status().isForbidden());
-
-//    mockMvc
-//        .perform(
-//            post("/env")
-//                .with(httpBasic("user", "pwd")))
-//        .andExpect(status().isForbidden());
+    testEndpointIsDisabled("/resume");
   }
 
 }
